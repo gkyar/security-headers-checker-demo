@@ -36,3 +36,5 @@ docker/**/data
 target/
 **/target
 __pycache__
+.dccache
+.dcignore
