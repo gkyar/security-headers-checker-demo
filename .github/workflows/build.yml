@@ -8,15 +8,16 @@ on:
 
 jobs:
   check-headers:
+    name: Check Headers
     runs-on: ubuntu-latest
+    
     steps:
-      - uses: actions/checkout@v2
       - name: Install Node
-      - uses: actions/setup-node@v2
+        uses: actions/setup-node@v2
         with:
           node-version: '14'
-      # - run: npm install -g check-my-headers
       - name: Check Header
-      - run: npx check-my-headers https://juice-shop.herokuapp.com/#/
+        run: |
+          npx check-my-headers https://juice-shop.herokuapp.com/#/
 
 
