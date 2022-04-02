@@ -1,4 +1,4 @@
-name: Build
+name: Check Headers
 
 on:
   push:
@@ -12,13 +12,26 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Setup Java
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+          cache: maven
+          
+      - name: Run Application
+        run: mvn spring-boot:run &
+        
       - name: Install Node
         uses: actions/setup-node@v2
         with:
           node-version: '14'
       - name: Check Header
         run: |
-          npx check-my-headers https://juice-shop.herokuapp.com/#/
+          npx check-my-headers http://localhost:8080/
       - name: Add Comment
         uses: mshick/add-pr-comment@v1
         with:
@@ -27,7 +40,7 @@ jobs:
             🌏
             !
           repo-token: ${{ secrets.GITHUB_TOKEN }}
-          repo-token-user-login: 'github-actions[bot]' # The user.login for temporary GitHub tokens
-          allow-repeats: false # This is the default
+          repo-token-user-login: 'github-actions[bot]'
+          allow-repeats: false
 
 
